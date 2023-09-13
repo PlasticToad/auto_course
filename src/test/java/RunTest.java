@@ -1,7 +1,10 @@
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static com.codeborne.selenide.Selenide.open;
 
 public class RunTest {
 
@@ -13,6 +16,11 @@ public class RunTest {
     @AfterEach
     public void afterClass() {
         System.out.println("After class");
+    }
+
+    @Test
+    public void openUrlTest() {
+        open("https://demoqa.com/automation-practice-form");
     }
 
     @Test
