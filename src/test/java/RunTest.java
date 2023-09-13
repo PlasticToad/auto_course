@@ -26,4 +26,12 @@ public class RunTest {
         System.out.println("2");
         Assertions.assertEquals("AW", "A@W");
     }
+
+    @Test
+    public void Test3() {
+        System.out.println("3");
+        int a = 3;
+        int b = 4;
+        Assertions.assertEquals(10, a+b);
+    }
 }
