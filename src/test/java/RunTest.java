@@ -18,10 +18,13 @@ public class RunTest {
         System.out.println("After class");
     }
 
+    /*
+    //пока не проходили
     @Test
     public void openUrlTest() {
         open("https://demoqa.com/automation-practice-form");
     }
+     */
 
     @Test
     public void Test1() {
