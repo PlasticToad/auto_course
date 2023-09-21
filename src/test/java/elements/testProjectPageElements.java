@@ -15,7 +15,7 @@ public class testProjectPageElements {
     public static SelenideElement subject = $x("//input[@id='summary']").as("Тема");
     public static SelenideElement description = $x("//textarea[@name='description']").as("Описание");
     public static SelenideElement versionFix = $x("//select[@id='fixVersions']/descendant::option[3]").as("Исправить в версиях");
-    public static SelenideElement priority = $x("//input[@id='priority-field']").as("Приоритет");
+    public static SelenideElement priorityDrop = $x("//input[@id='priority-field']").as("Приоритет");
     public static SelenideElement environment = $x("//textarea[@name='environment']").as("Окружение");
     public static SelenideElement versionRelate = $x("//select[@id='versions']/descendant::option[3]").as("Исправить в версиях");
     public static SelenideElement tags = $x("//textarea[@id='labels-textarea']").as("Метки");

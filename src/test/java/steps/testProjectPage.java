@@ -37,7 +37,7 @@ public class testProjectPage extends testProjectPageElements {
         subject.sendKeys("Серьезная ошибка в важном модуле");
         description.sendKeys("Что то нажал и все исчезло!");
         versionFix.click();
-        priority.sendKeys(Keys.SHIFT, Keys.HOME, Keys.DELETE,"Highest");
+        priorityDrop.sendKeys(Keys.SHIFT, Keys.HOME, Keys.DELETE,"Highest");
         tags.sendKeys("bugs");
         environment.sendKeys("Везде ничего не работает");
         versionRelate.click();
