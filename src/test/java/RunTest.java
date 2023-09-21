@@ -1,6 +1,5 @@
 import hooks.webHooks;
 import org.junit.jupiter.api.Test;
-import steps.testProjectPage;
 
 import static steps.testProjectPage.*;
 
@@ -19,6 +18,6 @@ public class RunTest extends webHooks {
     }
     @Test
     public void createBug() {
-        testProjectPage.createCloseBug(); //Создает задачу, прогоняет по статусам + Ассерт на статус ГОТОВ
+        createCloseBug(); //Создает задачу, прогоняет по статусам + Ассерт на статус ГОТОВ
     }
 }
