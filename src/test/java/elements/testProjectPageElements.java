@@ -22,7 +22,7 @@ public class testProjectPageElements {
     public static SelenideElement relatedTasks = $x("//select[@name='issuelinks-linktype']/descendant::option[1]").as("Связанные задачи");
     public static SelenideElement task = $x("//textarea[@id='issuelinks-issues-textarea']").as("Задача");
     public static SelenideElement assign = $x("//button[@id='assign-to-me-trigger']").as("Назаначить на меня");
-    public static SelenideElement sprint = $x("//input[@id='customfield_10104-field']").as("Спринт");
+//    public static SelenideElement sprint = $x("//input[@id='customfield_10104-field']").as("Спринт");
     public static SelenideElement createSaveBtn = $x("//input[@id='create-issue-submit']").as("Кнопка создать");
     public static SelenideElement lastTask = $x("//table//tr[last()]//td[2]").as("Последняя(новая) задача в таблице");
     public static SelenideElement workBtn = $x("//span[contains(.,'В работе')]").as("Кнопка в работе");
