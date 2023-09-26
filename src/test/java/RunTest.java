@@ -1,47 +1,23 @@
-import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Assertions;
+import hooks.webHooks;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selenide.open;
-
-public class RunTest {
-
-    @BeforeEach
-    public void beforeClass() {
-        System.out.println("Before Class");
-    }
-
-    @AfterEach
-    public void afterClass() {
-        System.out.println("After class");
-    }
+import static steps.testProjectPage.*;
 
 
-    //пока не проходили
+
+public class RunTest extends webHooks {
     @Test
-    public void openUrlTest() {
-        open("https://demoqa.com/automation-practice-form");
+    public void checkTasksQuantity() {
+        checkQuantity(); //Выводит количество задач в консоль + асерт, что задач больше 0
     }
-
     @Test
-    public void Test1() {
-        System.out.println("1");
-        Assertions.assertEquals("AW", "AW");
+    public void checkSelenTaskStatusVersion() {
+        goToSelenTask();
+        checkStatusToDo(); //Асерт на статус СДЕЛАТЬ
+        checkVersion(); //Асерт на версию 2.0
     }
-
     @Test
-    public void Test2() {
-        System.out.println("2");
-        Assertions.assertEquals("AW", "A@W");
-    }
-
-    @Test
-    public void Test3() {
-        System.out.println("3");
-        int a = 3;
-        int b = 4;
-        Assertions.assertEquals(10, a+b);
+    public void createBug() {
+        createCloseBug(); //Создает задачу, прогоняет по статусам + Ассерт на статус ГОТОВ
     }
 }
