@@ -1,9 +1,9 @@
 package steps;
 
-import elements.loginPageElements;
+import elements.LoginPageElements;
 
 
-public class loginPage extends loginPageElements {
+public class LoginPage extends LoginPageElements {
     public static void authorization() {
         if (userName.exists()) {
             userName.sendKeys("AT9");

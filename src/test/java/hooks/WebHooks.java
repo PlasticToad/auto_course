@@ -1,15 +1,17 @@
 package hooks;
 
+import io.cucumber.java.ru.Дано;
 import org.junit.jupiter.api.BeforeEach;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static steps.loginPage.authorization;
+import static steps.LoginPage.authorization;
 
 
-public class webHooks {
+public class WebHooks {
     @BeforeEach
+    @Дано("Запуск драйвера, вход в систему")
     public void driverSetup() {
         open("https://edujira.ifellow.ru/");
         getWebDriver().manage().window().maximize();

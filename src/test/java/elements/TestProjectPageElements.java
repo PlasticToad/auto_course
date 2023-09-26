@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class testProjectPageElements {
+public class TestProjectPageElements {
     public static SelenideElement quantity = $x("//div[@class='showing']/descendant::span").as("Поле количества задач");
     public static SelenideElement status = $x("//span[@id='status-val']/descendant::span").as("Статус");
     public static SelenideElement version = $x("//span[@id='fixfor-val']/descendant::a").as("Версия");
@@ -22,7 +22,6 @@ public class testProjectPageElements {
     public static SelenideElement relatedTasks = $x("//select[@name='issuelinks-linktype']/descendant::option[1]").as("Связанные задачи");
     public static SelenideElement task = $x("//textarea[@id='issuelinks-issues-textarea']").as("Задача");
     public static SelenideElement assign = $x("//button[@id='assign-to-me-trigger']").as("Назаначить на меня");
-//    public static SelenideElement sprint = $x("//input[@id='customfield_10104-field']").as("Спринт");
     public static SelenideElement createSaveBtn = $x("//input[@id='create-issue-submit']").as("Кнопка создать");
     public static SelenideElement lastTask = $x("//table//tr[last()]//td[2]").as("Последняя(новая) задача в таблице");
     public static SelenideElement workBtn = $x("//span[contains(.,'В работе')]").as("Кнопка в работе");

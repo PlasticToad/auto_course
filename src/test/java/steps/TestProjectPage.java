@@ -1,35 +1,40 @@
 package steps;
 
-import elements.testProjectPageElements;
+import elements.TestProjectPageElements;
+import io.cucumber.java.ru.Дано;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Keys;
-
 import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 
-public class testProjectPage extends testProjectPageElements {
+public class TestProjectPage extends TestProjectPageElements {
+    @Дано("Проверка версии")
     public static void checkVersion() {
         Assertions.assertEquals("Version 2.0", version.getText());
     }
+    @Дано("Проверка статуса СДЕЛАТЬ")
     public static void checkStatusToDo() {
         Assertions.assertEquals("СДЕЛАТЬ", status.getText());
     }
+    @Дано("Проверка статуса ГОТОВО")
     public static void checkStatusDone() {
         Assertions.assertEquals("ГОТОВО", status.getText());
     }
+    @Дано("Проверка количества задач")
     public static void checkQuantity() {
         String value = quantity.getText();
         int val = Integer.parseInt(value.substring(5).trim());
         System.out.println("Всего задач: " + val);
         Assertions.assertTrue(val > 0);
     }
+    @Дано("Переход на страницу задачи TestSelenium")
     public static void goToSelenTask() {
         quickSearch.sendKeys("TestSelenium");
         selenTask.click();
     }
+    @Дано("Проверка создания, закрытия задачи")
     public static void createCloseBug() {
         create.click();
         taskType.click();
@@ -44,7 +49,6 @@ public class testProjectPage extends testProjectPageElements {
         relatedTasks.click();
         task.sendKeys("TEST-28235");
         assign.click();
-//        sprint.sendKeys("Доска Спринт 1");//Руками все ОК. Автотест либо висит, либо не находит значение
         createSaveBtn.click();
         open("https://edujira.ifellow.ru/");
         lastTask.click();
