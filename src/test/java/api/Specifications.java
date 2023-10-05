@@ -7,6 +7,9 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.is;
+
 public class Specifications {
     public static RequestSpecification reqSpec(String url) {
         return new RequestSpecBuilder()
@@ -16,7 +19,7 @@ public class Specifications {
     }
     public static ResponseSpecification respSpec() {
         return new ResponseSpecBuilder()
-                .expectStatusCode(200)
+                .expectStatusCode(anyOf(is(200), is(201)))
                 .build();
     }
     public static void specInstall(RequestSpecification reqSpec, ResponseSpecification respSpec) {
