@@ -1,8 +1,8 @@
-package api.dataClasses;
+package api.dataClass;
 
 
 public class CharacterData {
-    public String id;
+    private String id;
     private String name;
     private String lastEp;
     private String species;
