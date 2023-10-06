@@ -96,5 +96,4 @@ public class ApiSteps {
         Assertions.assertEquals(name, req.jsonPath().getString("name"));
         Assertions.assertEquals(job, req.jsonPath().getString("Job"));
     }
-
 }
