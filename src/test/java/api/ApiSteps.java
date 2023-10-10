@@ -2,6 +2,8 @@ package api;
 
 
 import api.dataClass.CharacterData;
+import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
@@ -22,26 +24,30 @@ public class ApiSteps {
     public static void getCharacterData(String id, CharacterData character) {
         specInstall(reqSpec(RAMBURL), respSpec());
         Response req = given()
+                .filter(new AllureRestAssured())
                 .when()
                 .get("/character/"+id)
                 .then()
                 .log().all()
                 .extract()
                 .response();
-        character.setId(new JSONObject(req.getBody().asString()).get("id").toString());
+//        character.setId(new JSONObject(req.getBody().asString()).get("id").toString());
         character.setLocation(new JSONObject(req.getBody().asString()).getJSONObject("location").get("name").toString());
         character.setName(new JSONObject(req.getBody().asString()).get("name").toString());
         character.setSpecies(new JSONObject(req.getBody().asString()).get("species").toString());
         int episode = (new JSONObject(req.getBody().asString()).getJSONArray("episode").length() - 1);
         character.setLastEp(new JSONObject(req.getBody().asString()).getJSONArray("episode").get(episode).toString().replaceAll("[^0-9]", ""));
     }
+    @Step("Получить информацию о первом персонаже")
     public static void getOriginChar(String id) {
         getCharacterData(id, character1);
 
     }
+    @Step("Получить информацю о втором персонаже")
     public static void getLastCharOfLastEp(String lEp) {
         specInstall(reqSpec(RAMBURL), respSpec());
         Response req = given()
+                .filter(new AllureRestAssured())
                 .when()
                 .get("/episode/"+lEp)
                 .then()
@@ -53,7 +59,7 @@ public class ApiSteps {
         getCharacterData(tempCharId, character2);
 
     }
-
+    @Step("Сравнить расу и локацию Персонажа 1 и 2")
     public static void checkSpeciesLocation(String id) {
         getOriginChar(id);
         getLastCharOfLastEp(character1.getLastEp());
@@ -72,6 +78,7 @@ public class ApiSteps {
                     character2.getName() + ": " + character2.getSpecies() + "\n");
         }
     }
+    @Step("Создать пользователя, проверить ответ")
     public static void createUser(String name, String job) {
         JSONObject body = null;
         try {
@@ -82,7 +89,8 @@ public class ApiSteps {
         body.put("name", name);
         body.put("Job", job);
         specInstall(reqSpec(REQRESBURL), respSpec());
-        Response req = (Response) given()
+        Response req = given()
+                .filter(new AllureRestAssured())
                 .header("Content-type", "application/json")
                 .and()
                 .body(body.toString())

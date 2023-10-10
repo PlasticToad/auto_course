@@ -2,21 +2,12 @@ package api.dataClass;
 
 
 public class CharacterData {
-    private String id;
     private String name;
     private String lastEp;
     private String species;
     private String location;
 
     public CharacterData() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
