@@ -1,10 +1,18 @@
 package steps;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.WebDriverRunner;
 import elements.TestProjectPageElements;
 import io.cucumber.java.ru.Дано;
+import io.cucumber.java.ru.Тогда;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.opentest4j.AssertionFailedError;
+
 import java.time.Duration;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
@@ -12,19 +20,19 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class TestProjectPage extends TestProjectPageElements {
     @Step("Проверить версию 2.0")
-    @Дано("Проверка версии")
+    @Тогда("Проверка версии")
     public static void checkVersion() {
-        Assertions.assertEquals("Version 2.0", version.getText());
+        version.shouldHave(Condition.exactText("Version 2.0"));
     }
     @Step("Проверить статус Сделать")
-    @Дано("Проверка статуса СДЕЛАТЬ")
+    @Тогда("Проверка статуса СДЕЛАТЬ")
     public static void checkStatusToDo() {
-        Assertions.assertEquals("СДЕЛАТЬ", status.getText());
+        status.shouldHave(Condition.exactText("СДЕЛАТЬ"));
     }
     @Step("проверить статус Готово")
     @Дано("Проверка статуса ГОТОВО")
     public static void checkStatusDone() {
-        Assertions.assertEquals("ГОТОВО", status.getText());
+        status.shouldHave(Condition.exactText("ГОТОВО"));
     }
     @Step("Проверить количество задач")
     @Дано("Проверка количества задач")
@@ -32,7 +40,16 @@ public class TestProjectPage extends TestProjectPageElements {
         String value = quantity.getText();
         int val = Integer.parseInt(value.substring(5).trim());
         System.out.println("Всего задач: " + val);
-        Assertions.assertTrue(val > 0);
+        try {
+            Assertions.assertTrue(val > 0);
+        } catch (AssertionFailedError e) {
+            makeScreenShot();
+            Assertions.fail("Колличество задач меньше 0");
+        }
+    }
+    @Attachment("image/png")
+    public static byte[] makeScreenShot() {
+        return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
     @Step("Перейти на страницу задачи TestSelenium")
     @Дано("Переход на страницу задачи TestSelenium")
