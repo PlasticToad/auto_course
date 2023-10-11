@@ -32,7 +32,6 @@ public class ApiSteps {
                 .log().all()
                 .extract()
                 .response();
-//        character.setId(new JSONObject(req.getBody().asString()).get("id").toString());
         character.setLocation(new JSONObject(req.getBody().asString()).getJSONObject("location").get("name").toString());
         character.setName(new JSONObject(req.getBody().asString()).get("name").toString());
         character.setSpecies(new JSONObject(req.getBody().asString()).get("species").toString());
