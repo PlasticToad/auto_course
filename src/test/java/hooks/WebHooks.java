@@ -12,19 +12,19 @@ import static steps.LoginPage.authorization;
 
 public class WebHooks {
     @Before
-    public void driverSetup() {
-        open("https://edujira.ifellow.ru/");
-        getWebDriver().manage().window().maximize();
-        authorization();
-        sleep(5000);
-        open("https://edujira.ifellow.ru/projects/TEST/issues/TEST-22095?filter=allopenissues");
-    }
-    @Before
     public static void allureSubThreadParallel() {
         String listerName = "AllureSelenide";
         if (!(SelenideLogger.hasListener(listerName))) {
             SelenideLogger.addListener(listerName,
                     (new AllureSelenide().screenshots(true).savePageSource(false)));
         }
+    }
+    @Before
+    public void driverSetup() {
+        open("https://edujira.ifellow.ru/");
+        getWebDriver().manage().window().maximize();
+        authorization();
+        sleep(5000);
+        open("https://edujira.ifellow.ru/projects/TEST/issues/TEST-22095?filter=allopenissues");
     }
 }
