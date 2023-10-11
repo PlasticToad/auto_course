@@ -2,6 +2,7 @@ package api;
 
 
 import api.dataClass.CharacterData;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.response.Response;
@@ -38,12 +39,12 @@ public class ApiSteps {
         int episode = (new JSONObject(req.getBody().asString()).getJSONArray("episode").length() - 1);
         character.setLastEp(new JSONObject(req.getBody().asString()).getJSONArray("episode").get(episode).toString().replaceAll("[^0-9]", ""));
     }
-    @Step("Получить информацию о первом персонаже")
+    @Step("Get запрос информации о персонаже с id {id}")
     public static void getOriginChar(String id) {
         getCharacterData(id, character1);
 
     }
-    @Step("Получить информацю о втором персонаже")
+    @Step("Get запрос информаци о персонаже из эпизода с id {lEp}")
     public static void getLastCharOfLastEp(String lEp) {
         specInstall(reqSpec(RAMBURL), respSpec());
         Response req = given()
@@ -59,26 +60,34 @@ public class ApiSteps {
         getCharacterData(tempCharId, character2);
 
     }
-    @Step("Сравнить расу и локацию Персонажа 1 и 2")
+    @Step("Сравнить расу и локацию Персонажей")
     public static void checkSpeciesLocation(String id) {
         getOriginChar(id);
         getLastCharOfLastEp(character1.getLastEp());
         try {
-            Assertions.assertEquals(character1.getLocation(), character2.getLocation());
+            Assertions.assertEquals(character1.getLocation(), character2.getLocation(), "Локации не совпадают!");
         } catch (AssertionFailedError e) {
-            System.out.println("Локации не совпадают!\n"+
-                     character1.getName() + ": " + character1.getLocation() + "\n"+
-                     character2.getName() + ": " + character2.getLocation() + "\n");
+            String errorText = "Локации не совпадают!\n"+
+                    character1.getName() + ": " + character1.getLocation() + "\n"+
+                    character2.getName() + ": " + character2.getLocation() + "\n";
+            sendText(errorText);
+            System.out.println(errorText);
         }
         try {
-            Assertions.assertEquals(character1.getSpecies(), character2.getSpecies());
+            Assertions.assertEquals(character1.getSpecies(), character2.getSpecies(), "Раса не совпадает!");
         } catch (AssertionFailedError e) {
-            System.out.println("Расса не совпадает!\n"+
+            String errorText = "Раса не совпадает!\n"+
                     character1.getName() + ": " + character1.getSpecies() + "\n"+
-                    character2.getName() + ": " + character2.getSpecies() + "\n");
+                    character2.getName() + ": " + character2.getSpecies() + "\n";
+            sendText(errorText);
+            System.out.println(errorText);
         }
     }
-    @Step("Создать пользователя, проверить ответ")
+    @Attachment(value = "При сравнении не совпали данные:")
+    public static String sendText(String message) {
+        return message;
+    }
+    @Step("Post запрос на создание пользователя Имя/Работа : {name}/{job}. Проверка ответа")
     public static void createUser(String name, String job) {
         JSONObject body = null;
         try {
