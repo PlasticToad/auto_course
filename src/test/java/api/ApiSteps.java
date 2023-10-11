@@ -64,7 +64,7 @@ public class ApiSteps {
         getOriginChar(id);
         getLastCharOfLastEp(character1.getLastEp());
         try {
-            Assertions.assertEquals(character1.getLocation(), character2.getLocation(), "Локации не совпадают!");
+            Assertions.assertEquals(character1.getLocation(), character2.getLocation());
         } catch (AssertionFailedError e) {
             String errorText = "Локации не совпадают!\n"+
                     character1.getName() + ": " + character1.getLocation() + "\n"+
@@ -73,7 +73,7 @@ public class ApiSteps {
             System.out.println(errorText);
         }
         try {
-            Assertions.assertEquals(character1.getSpecies(), character2.getSpecies(), "Раса не совпадает!");
+            Assertions.assertEquals(character1.getSpecies(), character2.getSpecies());
         } catch (AssertionFailedError e) {
             String errorText = "Раса не совпадает!\n"+
                     character1.getName() + ": " + character1.getSpecies() + "\n"+
