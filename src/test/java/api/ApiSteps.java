@@ -70,7 +70,6 @@ public class ApiSteps {
                     character1.getName() + ": " + character1.getLocation() + "\n"+
                     character2.getName() + ": " + character2.getLocation() + "\n";
             sendText(errorText);
-            System.out.println(errorText);
         }
         try {
             Assertions.assertEquals(character1.getSpecies(), character2.getSpecies());
@@ -79,7 +78,6 @@ public class ApiSteps {
                     character1.getName() + ": " + character1.getSpecies() + "\n"+
                     character2.getName() + ": " + character2.getSpecies() + "\n";
             sendText(errorText);
-            System.out.println(errorText);
         }
     }
     @Attachment(value = "При сравнении не совпали данные:")
