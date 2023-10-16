@@ -17,7 +17,7 @@ public class RunTest {
     @DisplayName("Сравнение расы и локации двух персонажей")
     @Owner("Боробов")
     public void task1() {
-        checkSpeciesLocation("2");//ID Морти(2)
+        rickAndMortyApiTest("2");
     }
 
 

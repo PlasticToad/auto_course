@@ -1,6 +1,5 @@
 package api;
 
-
 import api.dataClass.CharacterData;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
@@ -68,10 +67,7 @@ public class ApiSteps {
 
     }
     @Step("Сравнить расу и локацию Персонажей")
-    public static void checkSpeciesLocation(String id) {
-        propLoad();
-        getOriginChar(id);
-        getLastCharOfLastEp(character1.getLastEp());
+    public static void checkSpeciesLocation() {
         try {
             Assertions.assertEquals(character1.getLocation(), character2.getLocation());
         } catch (AssertionFailedError e) {
@@ -88,6 +84,12 @@ public class ApiSteps {
                     character2.getName() + ": " + character2.getSpecies() + "\n";
             sendText(errorText);
         }
+    }
+    public static void rickAndMortyApiTest(String id) {
+        propLoad();
+        getOriginChar(id);
+        getLastCharOfLastEp(character1.getLastEp());
+        checkSpeciesLocation();
     }
     @Attachment(value = "При сравнении не совпали данные:")
     public static String sendText(String message) {
