@@ -11,19 +11,27 @@ import org.junit.jupiter.api.Assertions;
 import org.opentest4j.AssertionFailedError;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Properties;
 
 import static api.Specifications.*;
 import static io.restassured.RestAssured.given;
 
 public class ApiSteps {
-    private final static String RAMBURL = "https://rickandmortyapi.com/api";
-    private final static String REQRESBURL = "https://reqres.in/api";
+    static Properties prop = new Properties();
+    static void propLoad() {
+        try(InputStream input = Files.newInputStream(Paths.get("src/test/resources/application.properties"))) {
+            prop.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     public static CharacterData character1 = new CharacterData();
     public static CharacterData character2 = new CharacterData();
     public static void getCharacterData(String id, CharacterData character) {
-        specInstall(reqSpec(RAMBURL), respSpec());
+        specInstall(reqSpec(prop.getProperty("RAMBURL")), respSpec());
         Response req = given()
                 .filter(new AllureRestAssured())
                 .when()
@@ -45,7 +53,7 @@ public class ApiSteps {
     }
     @Step("Get запрос информаци о персонаже из эпизода с id {lEp}")
     public static void getLastCharOfLastEp(String lEp) {
-        specInstall(reqSpec(RAMBURL), respSpec());
+        specInstall(reqSpec(prop.getProperty("RAMBURL")), respSpec());
         Response req = given()
                 .filter(new AllureRestAssured())
                 .when()
@@ -61,6 +69,7 @@ public class ApiSteps {
     }
     @Step("Сравнить расу и локацию Персонажей")
     public static void checkSpeciesLocation(String id) {
+        propLoad();
         getOriginChar(id);
         getLastCharOfLastEp(character1.getLastEp());
         try {
@@ -86,6 +95,7 @@ public class ApiSteps {
     }
     @Step("Post запрос на создание пользователя Имя/Работа : {name}/{job}. Проверка ответа")
     public static void createUser(String name, String job) {
+        propLoad();
         JSONObject body = null;
         try {
             body = new JSONObject(new String(Files.readAllBytes(Paths.get("src/test/resources/someJson.json"))));
@@ -94,7 +104,7 @@ public class ApiSteps {
         }
         body.put("name", name);
         body.put("Job", job);
-        specInstall(reqSpec(REQRESBURL), respSpec());
+        specInstall(reqSpec(prop.getProperty("REQRESBURL")), respSpec());
         Response req = given()
                 .filter(new AllureRestAssured())
                 .header("Content-type", "application/json")

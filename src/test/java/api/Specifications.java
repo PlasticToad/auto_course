@@ -11,6 +11,7 @@ import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
 public class Specifications {
+
     public static RequestSpecification reqSpec(String url) {
         return new RequestSpecBuilder()
                 .setBaseUri(url)
