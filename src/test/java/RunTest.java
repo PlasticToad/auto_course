@@ -1,23 +1,41 @@
-import hooks.webHooks;
+import hooks.WebHooks;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static steps.testProjectPage.*;
+import static steps.TestProjectPage.*;
 
 
-
-public class RunTest extends webHooks {
+@Epic("Тестирование UI")
+@Feature("Тесты с использованием JUnit")
+@DisplayName("Тесты с использованием JUnit")
+public class RunTest extends WebHooks {
     @Test
+    @DisplayName("Тест колличества задач")
+    @Owner("Боробов")
     public void checkTasksQuantity() {
-        checkQuantity(); //Выводит количество задач в консоль + асерт, что задач больше 0
+        goToAllTests();
+        checkQuantity();
     }
     @Test
+    @DisplayName("Тест версии и статуса")
+    @Owner("Боробов")
     public void checkSelenTaskStatusVersion() {
         goToSelenTask();
-        checkStatusToDo(); //Асерт на статус СДЕЛАТЬ
-        checkVersion(); //Асерт на версию 2.0
+        checkStatusToDo();
+        checkVersion();
     }
     @Test
-    public void createBug() {
-        createCloseBug(); //Создает задачу, прогоняет по статусам + Ассерт на статус ГОТОВ
+    @DisplayName("Тест создания/закрытия задачи")
+    @Owner("Боробов")
+    public void createCloseBug() {
+        createBug();
+        fillFields();
+        saveBug();
+        openCreatedBug();
+        closeBug();
+        checkStatusDone();
     }
 }
